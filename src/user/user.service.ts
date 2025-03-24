@@ -17,10 +17,23 @@ export class UserService {
   }
 
   async getAllUsers() {
+    this.logger.log({ message: 'Get all users' });
     return await this.userRepository.getAllUsers();
   }
 
-  async getUserById(id: string) {
+  async getUserById(id: string | number) {
+    this.logger.log({ message: `Get user with id ${id}` });
     return await this.userRepository.getUserById(id);
+  }
+
+  async updateUser(id: string | number, data: UserDTO) {
+    const parsedData = userSchema.parse(data);
+    this.logger.log({ message: `Update user with id ${id}`, user: parsedData });
+    return await this.userRepository.updateUser(id, parsedData);
+  }
+
+  async deleteUser(id: string | number) {
+    this.logger.log({ message: `Delete user with id ${id}` });
+    return await this.userRepository.deleteUser(id);
   }
 }
