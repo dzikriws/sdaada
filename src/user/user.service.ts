@@ -28,7 +28,7 @@ export class UserService {
 
   async updateUser(id: string | number, data: UserDTO) {
     const parsedData = userSchema.parse(data);
-    this.logger.log({ message: `Update user with id ${id}`, user: parsedData });
+    this.logger.log({ message: `Update user with id ${typeof id === 'number' ? id : parseInt(id)}`, user: parsedData });
     return await this.userRepository.updateUser(id, parsedData);
   }
 
